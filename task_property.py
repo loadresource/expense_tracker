@@ -73,14 +73,47 @@ def obj_to_json(task):
 def add(description: str):
     # Usar la instancia compartida del generador de IDs
     task = Task(
-        ID=generador_id.siguiente(),
-        description=description,
-        status="todo",
-        createdAt=date.today(),
-        updateAt=datetime.now()
+        ID = generador_id.siguiente(),
+        description = description,
+        status = "todo",
+        createdAt = date.today(),
+        updateAt = datetime.now()
     )
     save(task)
     return task, f"Task added successfully {task.ID}"
+
+def save(task):
+    """
+    Agrega una nueva tarea al archivo data.json sin reescribir el contenido existente.
+    
+    Args:
+        task: Objeto de tarea a guardar
+    """
+    filename = "data.json"
+    
+    try:
+        # Leer tareas existentes o inicializar lista vacía
+        if os.path.exists(filename) and os.path.getsize(filename) > 0:
+            with open(filename, "r") as file:
+                try:
+                    tasks = json.load(file)
+                except json.JSONDecodeError:
+                    tasks = []
+        else:
+            tasks = []
+        
+        # Convertir la tarea a formato JSON y agregarla a la lista
+        task_json = obj_to_json(task)
+        tasks.append(task_json)
+        
+        # Escribir todas las tareas de vuelta al archivo
+        with open(filename, "w") as file:
+            json.dump(tasks, file, indent=2)
+            
+    except IOError as e:
+        print(f"Error al guardar la tarea: {e}")
+    except Exception as e:
+        print(f"Error inesperado: {e}")
 
 
 def update(id: int, description: str):
@@ -135,38 +168,6 @@ def list(status=None):
             return tasks
     return None
 
-def save(task):
-    """
-    Agrega una nueva tarea al archivo data.json sin reescribir el contenido existente.
-    
-    Args:
-        task: Objeto de tarea a guardar
-    """
-    filename = "data.json"
-    
-    try:
-        # Leer tareas existentes o inicializar lista vacía
-        if os.path.exists(filename) and os.path.getsize(filename) > 0:
-            with open(filename, "r") as file:
-                try:
-                    tasks = json.load(file)
-                except json.JSONDecodeError:
-                    tasks = []
-        else:
-            tasks = []
-        
-        # Convertir la tarea a formato JSON y agregarla a la lista
-        task_json = obj_to_json(task)
-        tasks.append(task_json)
-        
-        # Escribir todas las tareas de vuelta al archivo
-        with open(filename, "w") as file:
-            json.dump(tasks, file, indent=2)
-            
-    except IOError as e:
-        print(f"Error al guardar la tarea: {e}")
-    except Exception as e:
-        print(f"Error inesperado: {e}")
 
 def delete(task_id):
     if os.path.exists("data.json"):
