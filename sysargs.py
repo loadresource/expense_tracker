@@ -7,13 +7,18 @@ import task_property
 # Cada subcomando tiene su propio conjunto de argumentos
 def create_parser():
     # Crear el parser
-    arg_parser = argparse.ArgumentParser(description="Task Tracker CLI")
+    arg_parser = argparse.ArgumentParser(description="Expense Tracker CLI")
+   
     # Subcomando
     subparsers = arg_parser.add_subparsers(dest="command", help="Available commands")
+   
     # Subcomando add
-    parser_add = subparsers.add_parser("add", help="Add a new task")
-    parser_add.add_argument("description", type=str, help="Task description")
+    parser_add = subparsers.add_parser("add", help="Add a new expense")
+    parser_add.add_mutually_exclusive_group()
+    parser_add.add_argument("--description", type=str, help="expense description")
+    parser_add.add_argument("--amount", type=int, help="expense amount")
     parser_add.set_defaults(func=handle_add)
+    
     # subcomando list
     parser_list = subparsers.add_parser("list", help="List tasks")
     group = parser_list.add_mutually_exclusive_group()
@@ -47,7 +52,7 @@ def create_parser():
 
 # Manejador para el subcomando add
 def handle_add(args):
-    task, message = task_property.add(args.description)
+    task, message = task_property.add(args.description,args.amount)
     print(message)
     print(task)
 
