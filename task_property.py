@@ -4,9 +4,10 @@ import json
 import os
 
 class Task:
-    def __init__(self, ID, description, status, createdAt, updateAt):
+    def __init__(self, ID, description,amount, status, createdAt, updateAt):
         self.ID = ID
         self.description = description
+        self.amount = amount
         self.status = status
         self.createdAt = createdAt
         self.updateAt = updateAt
@@ -64,23 +65,25 @@ def obj_to_json(task):
     return {
         "id": task["ID"],
         "description": task["description"],
+        "amount": task["amount"],
         "status": task["status"],
         "createdAt": task["createdAt"].strftime("%Y-%m-%d"),
         "updateAt": task["updateAt"].strftime("%Y-%m-%d %H:%M:%S")
     }
 
 
-def add(description: str):
+def add(description: str,amount: int):
     # Usar la instancia compartida del generador de IDs
     task = Task(
         ID = generador_id.siguiente(),
         description = description,
+        amount = amount,
         status = "todo",
         createdAt = date.today(),
         updateAt = datetime.now()
     )
     save(task)
-    return task, f"Task added successfully {task.ID}"
+    return task, f"expense added successfully ID({task.ID})"
 
 def save(task):
     """
