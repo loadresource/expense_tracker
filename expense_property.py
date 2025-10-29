@@ -169,7 +169,7 @@ def update(id: int, description: str, amount: int):
         str: Mensaje indicando el resultado de la operación
     """
     if not os.path.exists("data.json"):
-        return f"Error: No se encontró el archivo data.json"
+        return "Error: No se encontró el archivo data.json"
 
     try:
         with open("data.json", "r") as data:
@@ -268,7 +268,7 @@ def delete(task_id):
         str: Mensaje indicando el resultado de la operación
     """
     if not os.path.exists("data.json"):
-        return f"Error: No se encontró el archivo data.json"
+        return "Error: No se encontró el archivo data.json"
 
     try:
         with open("data.json", "r") as data:

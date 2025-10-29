@@ -3,7 +3,6 @@ import expense_property
 # Cada manejador recibe los argumentos parseados
 # y llama a la función correspondiente en task_property.py
 
-
 # Manejador para el subcomando add
 def handle_add(args):
     task, message = expense_property.add(args.description, args.amount)
