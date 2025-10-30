@@ -1,5 +1,5 @@
-import expense_property
-import json_to_csv
+import source.expense_property as expense_property
+import source.json_to_csv as json_to_csv
 # Manejadores de subcomandos
 # Cada manejador recibe los argumentos parseados
 # y llama a la función correspondiente en task_property.py
