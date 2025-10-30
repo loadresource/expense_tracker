@@ -1,6 +1,6 @@
 # Expense Tracker CLI
 
-Small command-line Expense Tracker used in the roadmap.sh project.
+Small command-line Expense Tracker used in the roadmap.sh project.[challenge](https://roadmap.sh/projects/expense-tracker)
 
 ## Features
 - Add, list, update and delete expenses.
