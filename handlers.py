@@ -1,4 +1,5 @@
 import expense_property
+import json_to_csv
 # Manejadores de subcomandos
 # Cada manejador recibe los argumentos parseados
 # y llama a la función correspondiente en task_property.py
@@ -47,3 +48,6 @@ def handle_delete(args):
 def handle_sumatori(args):
     summ = expense_property.sum_amounts()
     print(f"total :{summ}")
+
+def handle_converter_csv(args):
+    json_to_csv.json_to_csv(args.input_file, args.output_file)

@@ -2,6 +2,7 @@ import argparse
 import handlers as hd
 
 
+
 # Función para crear el parser de argumentos
 # y definir los subcomandos
 # Cada subcomando tiene su propio conjunto de argumentos
@@ -41,6 +42,12 @@ def create_parser():
     parser_sum = subparsers.add_parser("summary", help="total amount")
     parser_sum.add_argument("total",help="Total summary expense")
     parser_sum.set_defaults(func=hd.handle_sumatori)
+
+    #subcomando convert json_to_csv
+    parser_convert = subparsers.add_parser("convert",help="convert json to csv file")
+    parser_convert.add_argument("-i","--input_file",help="Input JSON file")
+    parser_convert.add_argument("-o","--output_file",help="Output CSV file")
+    parser_convert.set_defaults(func=hd.handle_converter_csv)
 
 
     return arg_parser
