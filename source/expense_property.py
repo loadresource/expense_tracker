@@ -3,7 +3,7 @@ import json
 import os
 
 
-class Task:
+class Expense:
     def __init__(self, ID, description, amount, status, createdAt, updateAt):
         self.ID = ID
         self.description = description
@@ -84,7 +84,7 @@ generador_id = GeneradorID()
 
 def add(description: str, amount: int):
     # Usar la instancia compartida del generador de IDs
-    task = Task(
+    task = Expense(
         ID=generador_id.siguiente(),
         description=description,
         amount=amount,
